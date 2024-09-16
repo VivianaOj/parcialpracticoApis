@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClubModule } from './club/club.module';
-import { SocioModule } from './socio/socios.module';
+import { SocioModule } from './socio/socio.module';
 import { ClubSocioModule } from './club-socio/club-socio.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 

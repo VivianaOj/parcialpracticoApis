@@ -1,0 +1,389 @@
+{
+	"info": {
+		"_postman_id": "06b391ba-7f2e-459d-b709-82d8957da474",
+		"name": "Club",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8358280",
+		"_collection_link": "https://bold-flare-296231.postman.co/workspace/APIs---Pruebas~b804d2e7-640b-4850-9238-4db245acdcbd/collection/8358280-06b391ba-7f2e-459d-b709-82d8957da474?action=share&source=collection_link&creator=8358280"
+	},
+	"item": [
+		{
+			"name": "Crear un Club valido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"id_Club\", data.id);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"THe club Test\",\r\n    \"fechaFundacion\": \"2024-05-25\",\r\n    \"imagen\": \"https://theclub/image.jpeg\",\r\n    \"descripcion\": \"descripcion\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/club",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un Club invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"mensaje de error esperado\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"La descripción excede los 100 caracteres\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"nombre\": \"THe club Test\",\r\n    \"fechaFundacion\": \"2024-05-25\",\r\n    \"imagen\": \"https://theclub/image.jpeg\",\r\n    \"descripcion\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/club",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar clubs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Numero de clubs > 0' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/club",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un Club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Es codigo esperado es 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/club/{{id_Club}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club",
+						"{{id_Club}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un Club invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de error esperado\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El club con el id proporcionado no existe\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/club/-1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un Club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"The new club\",\r\n    \"fechaFundacion\": \"2025-04-25\",\r\n    \"imagen\": \"https://thenewclub/image.jpeg\",\r\n    \"descripcion\": \" descripcion\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/club/{{id_Club}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club",
+						"{{id_Club}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un Club invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de error esperado\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"La descripción excede los 100 caracteres\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"The Breakfast Club\",\r\n    \"fechaFundacion\": \"1990-04-25\",\r\n    \"imagen\": \"https://i.imgur.com/j4ektfh.jpeg\",\r\n    \"descripcion\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo eu dolor ac accumsan. Curabitur ut lorem lorem. In suscipit, leo nec laoreet ultricies, est neque scelerisque neque, non convallis ipsum tellus ac lacus.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/club/{{id_Club}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club",
+						"{{id_Club}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/club/{{id_Club}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club",
+						"{{id_Club}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Club invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Mensaje de error esperado\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El club con el id proporcionado no existe\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/club/-1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"club",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
