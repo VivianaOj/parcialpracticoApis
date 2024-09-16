@@ -1,42 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ClubModule } from './club/club.module';
-import { ClubEntity } from './club/club.entity';
-import { SocioEntity } from './socio/socio.entity';
 import { SocioModule } from './socio/socios.module';
 import { ClubSocioModule } from './club-socio/club-socio.module';
-
-function databaseConfigFromEnv(): TypeOrmModuleOptions {
-  const url = new URL(process.env.DATABASE_URL);
-  const scheme = url.protocol.slice(0, -1);
-
-  if (scheme === 'sqlite') {
-    return {
-      type: 'sqlite',
-      database: url.pathname || url.host,
-    };
-  }
-
-  if (scheme === 'postgres') {
-    return {
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-    };
-  }
-
-  throw new Error('Invalid database URL');
-}
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      ...databaseConfigFromEnv(),
-      entities: [ClubEntity, SocioEntity],
-      dropSchema: true,
+      type: 'sqlite',
+      database: 'database.sqlite',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-      keepConnectionAlive: true,
     }),
     ClubModule,
     SocioModule,
