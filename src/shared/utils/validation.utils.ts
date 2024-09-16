@@ -1,5 +1,5 @@
 const articles = [
-  ['clubs', 'categoria', 'ciudad', 'receta'],
+  ['club', 'categoria', 'ciudad', 'receta'],
   ['socio', 'producto', 'restaurante'],
 ];
 

@@ -18,7 +18,7 @@ import { ClubDto } from './club.dto';
 
 @Controller('club')
 @UseInterceptors(BusinessErrorsInterceptor)
-export class ClubsController {
+export class ClubController {
   constructor(private readonly clubService: ClubService) {}
 
   @Get()
