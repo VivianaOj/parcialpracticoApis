@@ -24,7 +24,7 @@ export class SocioService {
     const socio = await this.socioRepository.findOne({ where: { id } });
     if (!socio) {
       throw new BusinessLogicException(
-        unknownMsg('club'),
+        unknownMsg('socio'),
         BusinessError.NOT_FOUND,
       );
     }
@@ -38,7 +38,7 @@ export class SocioService {
   async update(id: number, socio: SocioEntity): Promise<SocioEntity> {
     if (!socio.email.includes('@')) {
       throw new BusinessLogicException(
-        unknownMsg('club'),
+        unknownMsg('socio'),
         BusinessError.NOT_FOUND,
       );
     }
@@ -47,7 +47,7 @@ export class SocioService {
     });
     if (!socioPersistido) {
       throw new BusinessLogicException(
-        unknownMsg('club'),
+        unknownMsg('socio'),
         BusinessError.NOT_FOUND,
       );
     }
@@ -58,7 +58,7 @@ export class SocioService {
     const socio = await this.socioRepository.findOne({ where: { id } });
     if (!socio) {
       throw new BusinessLogicException(
-        unknownMsg('club'),
+        unknownMsg('socio'),
         BusinessError.NOT_FOUND,
       );
     }
