@@ -6,6 +6,7 @@ import { ClubModule } from './club/club.module';
 import { ClubEntity } from './club/club.entity';
 import { SocioEntity } from './socio/socio.entity';
 import { SocioModule } from './socio/socios.module';
+import { ClubSocioModule } from './club-socio/club-socio.module';
 
 function databaseConfigFromEnv(): TypeOrmModuleOptions {
   const url = new URL(process.env.DATABASE_URL);
@@ -39,6 +40,7 @@ function databaseConfigFromEnv(): TypeOrmModuleOptions {
     }),
     ClubModule,
     SocioModule,
+    ClubSocioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

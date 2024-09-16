@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { SocioEntity } from 'src/socio/socio.entity';
-import { ClubEntity } from 'src/club/club.entity';
+
 import {
   BusinessError,
   BusinessLogicException,
 } from '../shared/errors/business-errors';
 import { unknownMsg } from '../shared/utils/validation.utils';
+import { Repository } from 'typeorm';
+import { SocioEntity } from 'src/socio/socio.entity';
+import { ClubEntity } from 'src/club/club.entity';
 
 @Injectable()
 export class ClubSocioService {
